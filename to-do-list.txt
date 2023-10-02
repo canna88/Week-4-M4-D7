@@ -1,43 +1,140 @@
-- [DONE] fare lista dei metodi degli array
-- [DONE] studiare l'API fornita per capire come vengono fornite le immagini
-- [DONE] collegarsi all'API dal file javascript e incominciare a scaricare i dati
-- [DONE] creare BRANCH per HTML e CSS
+- [DONE] PRIMI PASSI:
+    - [DONE] creare un "arrayProva" (chatGPT) con oggetti creati in base alle indicazioni fornite
+    - [DONE] inserirlo in tutti i file javascript
+    - [DONE] creare 3 pagine HTML:
+        - [DONE] frontpage.html
+        - [DONE] pagina_prodotto.html
+        - [DONE] back_office.html
+    - [DONE] creare 3 pagine JAVACSRIPT:
+        - [DONE] frontpage.html
+        - [DONE] pagina_prodotto.html
+        - [DONE] back_office.html
 
 - HTML
-    - [DONE] sezioni
-        - [DONE] sezione card
-        - [DONE] sezione carrello
-        - [DONE] sezione filtri
-    - [DONE] elementi
-        - riattivare classe .open-cart:before per rendere oscura la pagina
+    - frontpage.html
+        - togliere tutti gli effetti CSS al caricamento
+        - inserire navbar e footer
+        - togliere pulsanti rimuovi
+        - togliere effetto selezionati
+        - inserire nelle card +/- 1 prodotto
+        - aggiornare il carrelo conseguentemente
+        - EXTRA: ordinare
+            - Ordine: prezzo più alto
+            - Ordine: nome
+        - EXTRA: filtrare
+            - Filtro: text
+
+    - pagina_prodotto.html
+        - inserire navbar e footer
+        - sistemare pagina tipo Amazon
+
+    - back_office.html
+        - inserire navbar e footer
+        - inserire righe prodotti
+            - pulsante: elimina
+                - si apre scelta "confermi eliminazione"
+            - pulsante: modifica
+                - si apre un form per la modifica
+        - inserire form creazione nuovo prodotto (ricordarsi prevent event default)
+            - bottone: crea nuovo prodotto
+            - si apre il form a comparsa
+            - i campi devono essere obbligatori
+            - pulsante invia
+            - pulsante resetta
+            - quando si invia deve cancellare tutti i campi
+            - i campi devono essere predefiniti con il formato
+            - immagine: propone soluzioni da pexel
 
 - CSS
-    - [DONE] nascondere rimuovi rimuoviTutto (di conseguenze nel js)
-    - [DONE] nascondere rimuovi totale e valore prodotti (di conseguenze nel js)
+    - nascondere rimuovi rimuoviTutto (di conseguenze nel js)
+    - nascondere rimuovi totale e valore prodotti (di conseguenze nel js)
     - animazione comprato
         - acquisto
-        - rimuovi singolo
         - rimuovo tutto
     - animazione caricamento card
     - animazione carrello compari/scompari
 
+- JAVASCRIPT
+    - API
+        - creare account (IMPORTANTE: viene fornita vuota)
+        - ottenere il codice di autorizzazione
 
-- JAVACSRIPT
-    - [DONE] creazione array:
-        - [DONE] books totali
-        - [DONE] books nella visualizzazione
-        - [DONE] books eliminati
-        - [DONE] books nel carrello
-    - [DONE] renderizza tutti i template literars e .forEach o .map
-    - [DONE] assicurati che ci sia un pulsante "Aggiungi al carrello"
-        - [DONE] al click: aggiungi il libro alla lista del carrello
-        - [DONE] al click: cambia lo stile alla card
-    - [DONE] dai la possibilità all'utente di cancellare libri dal carrello
-    - [DONE] crea un pulsante per svuotare il carrello
-    - [DONE] nel pulsante remove di ogni card-cart: conta gli elementi nel carrello e mostra il totale .reduce
-    - [DONE] click pulsante "salta"
-    - [DONE] aggiungi un input di testo come filtro .filter()
-    - migliorare codice JS
+    - CODICE PURO
+        - frontpage.html
+            - controllare codice javascript precedentemente elaborato
+            - modificare con l'aggiunta del numero prodotti
+        - pagina_prodotto.html
+            - controllare codice javascript precedentemente elaborato
+            - trasferire i dati tramite il codice alla pagina prodotto
+        - back_office.html
+            - creare metodo POST
+            - creare metodo per UPDATE
+            - creare metodo per REMOVE
+            - EXTRA: scheda dettagli
 
 
 
+ARRAY PROVA
+
+const arrayElementi = [
+  {
+    "_id": "sdgergr",
+    "name": "3310 cellphone",
+    "description": "An unforgettable icon.",
+    "brand": "Nokia",
+    "imageUrl": "https://bit.ly/3ceXjRa",
+    "price": 100,
+    "userId": "admin",
+    "createdAt": "2021-09-19T09:32:10.535Z",
+    "updatedAt": "2021-09-19T09:32:10.535Z",
+    "__v": 0
+  },
+  {
+    "_id": "2dfeh3s",
+    "name": "Smartphone X",
+    "description": "The latest and greatest.",
+    "brand": "Samsung",
+    "imageUrl": "https://bit.ly/3cAweFJ",
+    "price": 800,
+    "userId": "user123",
+    "createdAt": "2021-09-20T15:45:22.123Z",
+    "updatedAt": "2021-09-20T15:45:22.123Z",
+    "__v": 0
+  },
+  {
+    "_id": "f34g5dh",
+    "name": "E-Book Reader",
+    "description": "Read your favorite books digitally.",
+    "brand": "Amazon",
+    "imageUrl": "https://bit.ly/3nR2YK9",
+    "price": 150,
+    "userId": "user456",
+    "createdAt": "2021-09-21T12:18:05.789Z",
+    "updatedAt": "2021-09-21T12:18:05.789Z",
+    "__v": 0
+  },
+  {
+    "_id": "gsd8h7f",
+    "name": "Wireless Headphones",
+    "description": "Enjoy music without the cords.",
+    "brand": "Sony",
+    "imageUrl": "https://bit.ly/3AlnhtP",
+    "price": 120,
+    "userId": "user789",
+    "createdAt": "2021-09-22T08:57:30.222Z",
+    "updatedAt": "2021-09-22T08:57:30.222Z",
+    "__v": 0
+  },
+  {
+    "_id": "p3j8sd9",
+    "name": "Gaming Console",
+    "description": "Experience the latest games.",
+    "brand": "Microsoft",
+    "imageUrl": "https://bit.ly/3yTrJuj",
+    "price": 400,
+    "userId": "user1011",
+    "createdAt": "2021-09-23T17:29:15.654Z",
+    "updatedAt": "2021-09-23T17:29:15.654Z",
+    "__v": 0
+  }
+];
