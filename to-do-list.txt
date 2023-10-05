@@ -12,12 +12,12 @@
 
 - HTML
     - frontpage.html
-        - togliere tutti gli effetti CSS al caricamento
-        - inserire navbar e footer
-        - togliere pulsanti rimuovi
-        - togliere effetto selezionati
+        - [DONE] togliere tutti gli effetti CSS al caricamento
+        - [DONE] togliere pulsanti rimuovi
+        - [DONE] togliere effetto selezionati
+        - [DONE] inserire navbar e footer
         - inserire nelle card +/- 1 prodotto
-        - aggiornare il carrelo conseguentemente
+        - aggiornare il carrello conseguentemente
         - EXTRA: ordinare
             - Ordine: prezzo più alto
             - Ordine: nome
@@ -25,11 +25,11 @@
             - Filtro: text
 
     - pagina_prodotto.html
-        - inserire navbar e footer
+        - [DONE] inserire navbar e footer
         - sistemare pagina tipo Amazon
 
     - back_office.html
-        - inserire navbar e footer
+        - [DONE] inserire navbar e footer
         - inserire righe prodotti
             - pulsante: elimina
                 - si apre scelta "confermi eliminazione"

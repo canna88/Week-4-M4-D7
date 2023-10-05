@@ -1,0 +1,77 @@
+/* Stile del pulsante di ricarica */
+#reload-button {
+  padding: 10px 20px;
+  background-color: #138065;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 0 6px rgb(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+/* Stile dei pulsanti di acquisto e salto */
+.buy-button {
+  box-sizing: border-box;
+  margin: 0px;
+  width: 48%;
+}
+
+.details-button {
+  box-sizing: border-box;
+  margin: 0px;
+  width: 100%;
+}
+
+
+/* Stile dei pulsanti di rimozione */
+.del-button,
+.del-all-button {
+  box-sizing: border-box;
+  margin: 0px;
+  width: 100%;
+}
+
+/* Stile del pulsante di apertura/chiusura del carrello */
+/* .toggle-cart-button {
+  font-size: 40px;
+  color: white;
+  background-color: #138065;
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  top: 100px;
+  left: 0px;
+  z-index: 3;
+  margin: 0;
+  transition: all 0.5s ease;
+}
+*/
+
+/* Stile del pulsante di apertura/chiusura del carrello quando è aperto */
+
+  /* Stili personalizzati per il pulsante del carrello nel navbar */
+  .toggle-cart-button {
+    font-size: 24px;
+    color: black;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-cart-button:hover {
+    background-color: #0c5d48;
+    cursor: pointer;
+    color: white;
+  }
+
+  .toggle-cart-button-open {
+    background-color: red;
+    color: white;
+  } 

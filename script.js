@@ -66,7 +66,7 @@ const arrayElementi = [
 // Identificazione elementi nel DOM e l'API
 const searchResultDiv = document.querySelector(".search-results");
 const sidecartDiv = document.querySelector(".nav");
-const linkBooks = "https://striveschool-api.herokuapp.com/books";
+const linkProducts = "https://striveschool-api.herokuapp.com/books";
 const searchInput = document.getElementById("search-input");
 const reloadButton = document.getElementById("reload-button");
 const cartHeader = document.querySelector(".cart-header");
@@ -77,21 +77,21 @@ searchResultDiv.innerHTML = "";
 sidecartDiv.innerHTML = "";
 
 // VARIABILI E ARRAYS
-let totalBooks = [];
-let visibleBooks = [];
-let deleteBooks = [];
-let cartBooks = [];
+let totalProducts = [];
+let visibleProducts = [];
+let deleteProducts = [];
+let cartProducts = [];
 
 //  FUNZIONI: DICHIARAZIONE
 
 // Funzione per filtrare e visualizzare i libri in base alla ricerca dell'utente
-function filterBooks() {
+function filterProducts() {
   const searchText = searchInput.value.toLowerCase(); // Testo inserito nell'input in minuscolo
-  visibleBooks = totalBooks.filter((book) =>
+  visibleProducts = totalProducts.filter((book) =>
     book.title.toLowerCase().includes(searchText)
   );
   searchResultDiv.innerHTML = ""; // Svuota la visualizzazione attuale dei libri
-  loadBooks(visibleBooks); // Carica i libri filtrat
+  loadProducts(visibleProducts); // Carica i libri filtrat
 }
 
 // Funzione per aprire/chiudere il carrello
@@ -123,16 +123,16 @@ function sumPrices(products) {
 function acquista(button) {
   const card = button.closest(".card"); // Trova la card genitore
   const asinCode = card.querySelector(".book-asin").textContent;
-  const libroTrovato = cartBooks.find((libro) => libro.asin === asinCode);
+  const libroTrovato = cartProducts.find((libro) => libro.asin === asinCode);
 
   if (libroTrovato) {
     alert(`Il libro è già presente nel carrello.`);
   } else {
-    const nuovoLibroCart = visibleBooks.find(
+    const nuovoLibroCart = visibleProducts.find(
       (libro) => libro.asin === asinCode
     );
 
-    if (cartBooks.length === 0) {
+    if (cartProducts.length === 0) {
       cartTitle.innerText = "Cart";
       cartHeader.innerHTML =
         /*html*/
@@ -153,7 +153,7 @@ function acquista(button) {
       `;
     }
 
-    cartBooks.push(nuovoLibroCart);
+    cartProducts.push(nuovoLibroCart);
 
     // Aggiungi e rimuovi la classe di rotazione al pulsante del carrello
     const cartButton = document.querySelector(".toggle-cart-button");
@@ -162,8 +162,8 @@ function acquista(button) {
       cartButton.classList.remove("rotate-center");
     }, 600);
 
-    console.log("aggiungi", cartBooks);
-    card.classList.toggle("buy-card");
+    console.log("aggiungi", cartProducts);
+    
     sidecartDiv.innerHTML +=
       /*html*/
       `
@@ -191,24 +191,18 @@ function acquista(button) {
 
   const numeroProdotti = document.getElementById("products-value");
   const valoreCarrello = document.getElementById("products-total");
-  numeroProdotti.innerText = cartBooks.length;
-  valoreCarrello.innerText = sumPrices(cartBooks);
-}
-
-// Funzione chiamata quando l'utente clicca sul pulsante "Salta" su un libro
-function salta(button) {
-  const card = button.closest(".card-container"); // Trova la card genitore
-  card.remove();
+  numeroProdotti.innerText = cartProducts.length;
+  valoreCarrello.innerText = sumPrices(cartProducts);
 }
 
 // Funzione chiamata quando l'utente rimuove un libro dal carrello
 function rimuovi(button) {
   const liElement = button.closest("li"); // Trova l'elemento <li> genitore
   const asinCode = liElement.querySelector(".book-asin").textContent;
-  cartBooks = cartBooks.filter((item) => item.asin !== asinCode);
+  cartProducts = cartProducts.filter((item) => item.asin !== asinCode);
   liElement.remove();
 
-  console.log("rimuovi", cartBooks);
+  console.log("rimuovi", cartProducts);
 
   const allCard = document.querySelectorAll(".card");
 
@@ -218,13 +212,13 @@ function rimuovi(button) {
       card.classList.remove("buy-card");
     }
   }
-  console.log("Il totale del carrello è: ", sumPrices(cartBooks));
+  console.log("Il totale del carrello è: ", sumPrices(cartProducts));
   const numeroProdotti = document.getElementById("products-value");
   const valoreCarrello = document.getElementById("products-total");
-  numeroProdotti.innerText = cartBooks.length;
-  valoreCarrello.innerText = sumPrices(cartBooks);
+  numeroProdotti.innerText = cartProducts.length;
+  valoreCarrello.innerText = sumPrices(cartProducts);
 
-  if (cartBooks.length === 0) {
+  if (cartProducts.length === 0) {
     cartHeader.innerHTML = "";
     cartTitle.innerText = "Your cart is empty";
   }
@@ -233,44 +227,28 @@ function rimuovi(button) {
 // Funzione chiamata quando l'utente rimuove tutti i libri dal carrello
 function rimuoviTutto() {
   sidecartDiv.innerHTML = "";
-  console.log("Prima elimina tutti: ", cartBooks);
-  cartBooks = [];
-  console.log("Dopo elimina tutti: ", cartBooks);
+  console.log("Prima elimina tutti: ", cartProducts);
+  cartProducts = [];
+  console.log("Dopo elimina tutti: ", cartProducts);
   const allCard = document.querySelectorAll(".card");
-  for (const card of allCard) {
-    card.classList.remove("buy-card");
-  }
-  console.log("Il totale del carrello è: ", sumPrices(cartBooks));
+
+  console.log("Il totale del carrello è: ", sumPrices(cartProducts));
   const numeroProdotti = document.getElementById("products-value");
   const valoreCarrello = document.getElementById("products-total");
-  numeroProdotti.innerText = cartBooks.length;
-  valoreCarrello.innerText = sumPrices(cartBooks);
+  numeroProdotti.innerText = cartProducts.length;
+  valoreCarrello.innerText = sumPrices(cartProducts);
 
-  console.log(cartBooks.length);
+  console.log(cartProducts.length);
 
-  if (cartBooks.length === 0) {
+  if (cartProducts.length === 0) {
     cartHeader.innerHTML = "";
     cartTitle.innerText = "Your cart is empty";
   }
 }
 
-// Funzione per ripristinare lo stato "acquistato" dei libri nel carrello
-function ripristinaComprati() {
-  const allCard = document.querySelectorAll(".card");
-
-  for (const productInCart of cartBooks) {
-    const asinCode = productInCart.asin;
-    for (const card of allCard) {
-      const cardAsin = card.querySelector(".book-asin").textContent; // Ottieni il testo del .book-asin
-      if (cardAsin === asinCode) {
-        card.classList.add("buy-card");
-      }
-    }
-  }
-}
 
 // Funzione per caricare i libri iniziali dalla API e visualizzarli
-function loadBooks(bookList) {
+function loadProducts(bookList) {
   searchResultDiv.innerHTML = "";
 
   bookList.forEach((element) => {
@@ -293,7 +271,6 @@ function loadBooks(bookList) {
               <p class="book-asin d-none">${asin}</p>
 
               <button class="btn btn-primary mt-2 buy-button" onclick="acquista(this)" data-action="buy">Buy</button>
-              <button class="btn btn-danger mt-2 jump-button" onclick="salta(this)" data-action="remove">Skip</button>
               <a href="/pagina_prodotto.html?id=${asin}" class="btn btn-info mt-2 details-button" data-action="remove">Details</a>
 
               </div>
@@ -303,31 +280,16 @@ function loadBooks(bookList) {
    `;
   });
   // Dopo aver caricato il contenuto
-
-  ripristinaComprati();
 }
 
 // Funzione per ottenere i libri dalla API iniziale
-function getBooks(link) {
+function getProducts(link) {
   fetch(link)
     .then((response) => response.json())
     .then((data) => {
-      totalBooks = data;
-      visibleBooks = data;
-      loadBooks(data);
-    })
-    .then(() => {
-      const sectionList = document.querySelectorAll("section");
-      let time = 0; // Inizializza il tempo a 0
-    
-      sectionList.forEach((element) => {
-        // Rimuovi la classe .document-load con un ritardo crescente
-        setTimeout(() => {
-          element.classList.remove("document-load");
-        }, time);
-    
-        time += 500; // Incrementa il tempo per il prossimo elemento
-      });
+      totalProducts = data;
+      visibleProducts = data;
+      loadProducts(data);
     })
     .catch((error) => {
       console.log(error.message);
@@ -337,9 +299,9 @@ function getBooks(link) {
 
 // FUNZIONI: ESECUZIONE
 
-getBooks(linkBooks); // Chiamiamo la funzione getBooks() per ottenere e visualizzare i libri iniziali dalla API
-searchInput.addEventListener("input", filterBooks); // Aggiungiamo un ascoltatore di eventi all'input di ricerca per filtrare i libri in tempo reale
+getProducts(linkProducts); // Chiamiamo la funzione getProducts() per ottenere e visualizzare i libri iniziali dalla API
+searchInput.addEventListener("input", filterProducts); // Aggiungiamo un ascoltatore di eventi all'input di ricerca per filtrare i libri in tempo reale
 reloadButton.addEventListener("click", function () { // Aggiungiamo un ascoltatore di eventi al pulsante "Reload" per ricaricare i libri dalla API
-  getBooks(linkBooks);   // Chiamiamo nuovamente la funzione getBooks() per ricaricare i libri
+  getProducts(linkProducts);   // Chiamiamo nuovamente la funzione getProducts() per ricaricare i libri
   searchInput.value = ""; // Ripristiniamo il valore dell'input di ricerca a una stringa vuota
 });

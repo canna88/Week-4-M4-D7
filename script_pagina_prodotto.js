@@ -61,6 +61,19 @@ const arrayElementi = [
   }
 ];
 
+// Funzione per aprire/chiudere il carrello
+function toggleCart() {
+  document.querySelector(".sidecart").classList.toggle("open-cart");
+  document
+    .querySelector(".toggle-cart-button")
+    .classList.toggle("toggle-cart-button-open");
+  // Aggiungi e rimuovi la classe di rotazione al pulsante del carrello
+  const cartButton = document.querySelector(".toggle-cart-button");
+  cartButton.classList.add("rotate-center");
+  setTimeout(() => {
+    cartButton.classList.remove("rotate-center");
+  }, 1000);
+}
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id")
@@ -95,9 +108,9 @@ function getBooksDetals(link) {
   searchResultDiv.innerHTML = 
   /*html*/
   ` 
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
+  <div class="spinner-border custom-spinner" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
   `
 
   fetch(link)

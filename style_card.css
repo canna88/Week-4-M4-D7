@@ -1,0 +1,42 @@
+/* Stile dei risultati del carrello */
+.card-results {
+  margin: 100px 0 10px 0;
+}
+
+
+/* Stile dei contenitori delle card dei libri */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  padding: 20px;
+}
+
+/* Stile delle card dei libri */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 600px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Esempio di ombra leggera */
+  transition: opacity 1s ease-in-out;
+}
+
+
+
+/* Stile del corpo delle card */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Stile delle immagini delle card */
+.card img {
+  width: 80%;
+  margin: 20px;
+  border-radius: 20px;
+}
