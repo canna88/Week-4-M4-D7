@@ -23,7 +23,8 @@
   <section id="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">TechStore</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -57,18 +58,22 @@
               <i class="bi bi-bag-fill"></i>
             </button>
           </li>
+          <li class="nav-item">
+            <button class="btn btn-light back-office-button" onclick="window.location.href='back_office.html';">Back
+              Office</button>
+          </li>
         </ul>
       </div>
     </nav>
-    
-  </section>
-  
 
-  <section id="title" >
+  </section>
+
+
+  <section id="title">
     <h1>Your tech online store</h1>
   </section>
-  
-  <section id="filter-products" >
+
+  <section id="filter-products">
 
     <form>
       <input id="search-input" type="text" placeholder="Filter your products">
@@ -76,11 +81,11 @@
     </form>
 
   </section>
-  
 
-  <section id="cart-products"  >
 
-   <div class="sidecart bg-dark text-center p-4">
+  <section id="cart-products">
+
+    <div class="sidecart bg-dark text-center p-4">
 
       <div class="cart-title text-light h4 m-0 px-4 text-center">
         Your cart is empty
@@ -96,8 +101,62 @@
 
   </section>
 
-  <section id="main-products"  >
+  <section id="main-products">
     <div class="search-results row">
+      <div class="search-results row">
+
+        <!-- Primo Prodotto -->
+        <div  class="card-container">
+          <div id="${_id}" class="card mb-5">
+            <img
+              src="https://images.pexels.com/photos/8837498/pexels-photo-8837498.jpeg?auto=compress&cs=tinysrgb&h=350"
+              class="card-img-top" alt="Immagine del Prodotto 2">
+            <div class="card-body">
+              <h5 class="card-title book-title">Nome Prodotto 2</h5>
+              <p class="card-text book-author">Descrizione del Prodotto 2</p>
+              <div class="m-0 card-info">
+                <p class="card-text book-price">$24.99</p>
+                <p class="product-id d-none">789012</p>
+                <div class="quantity-control mt-2 d-flex">
+                  <button class="btn btn-secondary" onclick="decreaseQuantity(this)">-</button>
+                  <div class="quantity"data-quantity="1">1</div>
+                  <button class="btn btn-secondary" onclick="increaseQuantity(this)">+</button>
+                </div>
+                <button class="btn btn-primary mt-2 buy-button" onclick="acquista(this)" data-action="buy">Buy</button>
+                <a href="/pagina_prodotto.html?id=789012" class="btn btn-info mt-2 details-button"
+                  data-action="remove">Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondo Prodotto -->
+
+        <div  class="card-container">
+          <div id="${_id}" class="card mb-5">
+            <img
+              src="https://images.pexels.com/photos/8837498/pexels-photo-8837498.jpeg?auto=compress&cs=tinysrgb&h=350"
+              class="card-img-top" alt="Immagine del Prodotto 2">
+            <div class="card-body">
+              <h5 class="card-title book-title">Nome Prodotto 2</h5>
+              <p class="card-text book-author">Descrizione del Prodotto 2</p>
+              <div class="m-0 card-info">
+                <p class="card-text book-price">$24.99</p>
+                <p class="product-id d-none">789012</p>
+                <div class="quantity-control mt-2 d-flex">
+                  <button class="btn btn-secondary" onclick="decreaseQuantity(this)">-</button>
+                  <div class="quantity" data-quantity="1">1</div>
+                  <button class="btn btn-secondary" onclick="increaseQuantity(this)">+</button>
+                </div>
+                <button class="btn btn-primary mt-2 buy-button" onclick="acquista(this)" data-action="buy">Buy</button>
+                <a href="/pagina_prodotto.html?id=789012" class="btn btn-info mt-2 details-button"
+                  data-action="remove">Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
     </div>
 
   </section>
@@ -134,7 +193,7 @@
       </div>
     </footer>
   </section>
-  
+
 
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

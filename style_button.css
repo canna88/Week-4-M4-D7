@@ -75,3 +75,22 @@
     background-color: red;
     color: white;
   } 
+
+/* Stile personalizzato per il pulsante "Back Office" nel navbar */
+.back-office-button {
+  margin-left: 20px;
+  color: black; /* Colore del testo */
+  border-radius: 4px; /* Bordo arrotondato */
+  font-weight: bold;
+
+}
+
+/* Stile quando il cursore è sopra il pulsante */
+.back-office-button:hover {
+  background-color: #0c5d48;
+  color: white;
+  font-weight: bold;
+  /* Cambia il colore di sfondo al passaggio del cursore */
+}
+
+

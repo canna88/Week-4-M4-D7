@@ -16,7 +16,7 @@
         - [DONE] togliere pulsanti rimuovi
         - [DONE] togliere effetto selezionati
         - [DONE] inserire navbar e footer
-        - inserire nelle card +/- 1 prodotto
+        - [DONE] inserire nelle card +/- 1 prodotto
         - aggiornare il carrello conseguentemente
         - EXTRA: ordinare
             - Ordine: prezzo più alto
@@ -56,20 +56,20 @@
 
 - JAVASCRIPT
     - API
-        - creare account (IMPORTANTE: viene fornita vuota)
-        - ottenere il codice di autorizzazione
+        -[DONE] creare account (IMPORTANTE: viene fornita vuota)
+        - [DONE] ottenere il codice di autorizzazione
 
     - CODICE PURO
         - frontpage.html
-            - controllare codice javascript precedentemente elaborato
-            - modificare con l'aggiunta del numero prodotti
+            - [DONE] controllare codice javascript precedentemente elaborato
+            - [DONE] modificare con l'aggiunta del numero prodotti
         - pagina_prodotto.html
-            - controllare codice javascript precedentemente elaborato
-            - trasferire i dati tramite il codice alla pagina prodotto
+            - [DONE] controllare codice javascript precedentemente elaborato
+            - [DONE] trasferire i dati tramite il codice alla pagina prodotto
         - back_office.html
-            - creare metodo POST
-            - creare metodo per UPDATE
-            - creare metodo per REMOVE
+            - [DONE] creare metodo POST
+            - [DONE] creare metodo per UPDATE
+            - [DONE] creare metodo per REMOVE
             - EXTRA: scheda dettagli
 -   SPINNERS e LOADERS
 

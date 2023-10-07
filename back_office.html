@@ -49,6 +49,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Login</a>
                     </li>
+                    <li class="nav-item">
+                        <button class="btn btn-light back-office-button"
+                            onclick="window.location.href='index.html';">Homepage</button>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -69,7 +73,7 @@
                     <div class="row product-attributes d-flex align-items-center">
                         <div class="col-2">
                             <label for="name">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control search-image-input" id="name" name="name" required>
 
                         </div>
                         <div class="col-2">
@@ -80,12 +84,12 @@
                         <div class="col-2">
                             <label for="brand">Brand:</label>
                             <input type="text" class="form-control" id="brand" name="brand" required>
-
                         </div>
                         <div class="col-2">
                             <label for="imageUrl">Image URL:</label>
-                            <input type="url" class="form-control" id="imageUrl" name="imageUrl" required>
-
+                            <input type="url" class="form-control search-image-link" id="imageUrl" name="imageUrl"
+                                required>
+                            <button type="submit" class="btn btn-primary suggest-image-button">Suggest Image</button>
                         </div>
                         <div class="col-2">
                             <label for="price">Price:</label>
@@ -118,7 +122,8 @@
                         </div>
                         <div class="col-2">
                             <label for="update-name">Name:</label>
-                            <input type="text" class="form-control" id="update-name" name="update-name" required>
+                            <input type="text" class="form-control search-image-input" id="update-name"
+                                name="update-name" required>
                         </div>
                         <div class="col-2">
                             <label for="update-description">Description:</label>
@@ -131,7 +136,9 @@
                         </div>
                         <div class="col-2">
                             <label for="update-imageUrl">Image URL:</label>
-                            <input type="url" class="form-control" id="update-imageUrl" name="update-imageUrl" required>
+                            <input type="url" class="form-control search-image-link" id="update-imageUrl"
+                                name="update-imageUrl" required>
+                            <button type="submit" class="btn btn-primary suggest-image-button">Suggest Image</button>
                         </div>
                         <div class="col-2">
                             <label for="update-price">Price:</label>
@@ -205,7 +212,7 @@
                                 readonly>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-danger cancel-button">Cancel</button>
+                            <button type="submit" class="btn btn-danger cancel-button">Cancel Product</button>
                         </div>
                     </div>
                 </div>

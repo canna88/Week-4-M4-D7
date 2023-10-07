@@ -39,6 +39,18 @@ const requestOptionsDelete = {
   },
 };
 
+("SALVO I PRODOTTI DEL CARRELLO DAL localStorage");
+let cartProducts = [];
+// Ottieni la stringa JSON dal local storage con la chiave specifica
+const cartProductsJSON = localStorage.getItem("cartProducts");
+cartProducts = JSON.parse(cartProductsJSON);
+// Ora cartProducts contiene i dati recuperati dal local storage
+if (cartProducts) {
+  refreshCart(cartProducts);
+} else {
+  cartProducts = [];
+}
+
 const productList = document.querySelector(".product-list-container");
 
 // Identificazione pulsanti nel DOM
@@ -78,68 +90,13 @@ const priceToDelete = formDelete.querySelector("#delete-price");
 const createdAtToDelete = formDelete.querySelector("#delete-createdAt");
 const updatedAtToDelete = formDelete.querySelector("#delete-updatedAt");
 
-// Funzione per caricare i libri iniziali dalla API e visualizzarli
-function loadProducts(bookList) {
-  productList.innerHTML = "";
-
-  bookList.forEach((element) => {
-    const { name, price, _id } = element;
-    const formattedPrice = `€ ${price.toFixed(2)}`;
-
-    productList.innerHTML +=
-      /*html*/
-      `
-    <div class="row d-flex align-items-center product">
-      <div class="col-3 attribute-value product-id">
-          <span>${_id}</span>
-      </div>
-      <div class="col-4 attribute-value">
-          <span>${name}</span>
-      </div>
-      <div class="col-3 attribute-value">
-          <span>${formattedPrice}</span>
-      </div>
-      <div class="col-2">
-          <button class="btn btn-primary edit-button" >Edit</button>
-          <button class="btn btn-danger delete-button">Delete</button>
-      </div>
-    </div>
-
-   `;
-  });
-  // Dopo aver caricato il contenuto
-}
-
-// Funzione per ottenere i libri dalla API iniziale
-async function getProducts(link) {
-  try {
-    const response = await fetch(link, requestOptionsGet);
-    if (!response.ok) {
-      throw new Error(
-        `Errore nella richiesta: ${response.status} ${response.statusText}`
-      );
-    }
-    const data = await response.json();
-    totalProducts = data;
-    visibleProducts = data;
-    loadProducts(data);
-
-    // Identifico gli edit e delete buttons nel DOM
-    document.querySelectorAll(".edit-button").forEach((button) => {
-      button.addEventListener("click", editButtonFunction);
-    });
-    document.querySelectorAll(".delete-button").forEach((button) => {
-      button.addEventListener("click", deleteButtonFunction);
-    });
-
-  } catch (error) {
-    console.error(error.message);
-  }
-}
-
 async function editButtonFunction(event) {
   // Evito il caricamento automatico della pagina
   event.preventDefault();
+
+  // Seleziona il modal
+  const modal = document.getElementById("staticBackdrop");
+  $(modal).modal("show");
 
   const button = event.target;
   const product = button.closest(".product");
@@ -182,7 +139,6 @@ async function editButtonFunction(event) {
     userIdToUpdate.value = userId;
     createdAtToUpdate.value = createdAt;
     updatedAtToUpdate.value = updatedAt;
-
   } catch (error) {
     console.error(error.message);
     // Notifica l'utente che il prodotto è stato eliminato o non è stato trovato
@@ -195,7 +151,7 @@ async function updateButtonFunction(event) {
   event.preventDefault();
 
   const productId = idToUpdate.value;
-  console.log(productId)
+  console.log(productId);
   // Li aggiungo ad un oggetto e lo trasformo in stringa
   const newProductData = JSON.stringify({
     name: nameToUpdate.value,
@@ -253,60 +209,13 @@ async function updateButtonFunction(event) {
   }
 }
 
-async function cancelButtonFunction(event) {
-    // Evito il caricamento automatico della pagina
-    event.preventDefault();
-
-    const productId = idToDelete.value;
-
-    try {
-      // Prima richiesta per controllare che l'ID sia presente nei prodotti aggiornati
-      const checkResponse = await fetch(
-        `${linkProducts}${productId}`,
-        requestOptionsGet
-      );
-      if (!checkResponse.ok) {
-        throw new Error(
-          `Errore nella richiesta: ${checkResponse.status} ${checkResponse.statusText}`
-        );
-      }
-  
-      // Seconda richiesta per effettuare l'eliminazione
-      const updateResponse = await fetch(`${linkProducts}${productId}`, {
-        ...requestOptionsDelete
-      });
-  
-      if (updateResponse.ok) {
-        const responseData = await updateResponse.json();
-        console.log("Prodotto eliminato con successo:", responseData);
-        alert("Prodotto eliminato con successo!");
-        getProducts(linkProducts);
-  
-        // Azzero i valori del form
-        idToDelete.value = "";
-        nameToDelete.value = "";
-        descriptionToDelete.value = "";
-        brandToDelete.value = "";
-        imageUrlToDelete.value = "";
-        priceToDelete.value = "";
-        userIdToDelete.value = "";
-        createdAtToDelete.value = "";
-        updatedAtToDelete.value = "";
-      } else {
-        console.error(
-          "Errore nella richiesta:",
-          updateResponse.status,
-          updateResponse.statusText
-        );
-      }
-    } catch (error) {
-      console.error("Errore nella richiesta:", error.message);
-    }
-}
-
 async function deleteButtonFunction(event) {
   // Evito il caricamento automatico della pagina
   event.preventDefault();
+
+  // Seleziona il modal
+  const modal = document.getElementById("deleteModal");
+  $(modal).modal("show");
 
   const button = event.target;
   const product = button.closest(".product");
@@ -357,11 +266,62 @@ async function deleteButtonFunction(event) {
   }
 }
 
+async function cancelButtonFunction(event) {
+  // Evito il caricamento automatico della pagina
+  event.preventDefault();
+
+  const productId = idToDelete.value;
+
+  try {
+    // Prima richiesta per controllare che l'ID sia presente nei prodotti aggiornati
+    const checkResponse = await fetch(
+      `${linkProducts}${productId}`,
+      requestOptionsGet
+    );
+    if (!checkResponse.ok) {
+      throw new Error(
+        `Errore nella richiesta: ${checkResponse.status} ${checkResponse.statusText}`
+      );
+    }
+
+    // Seconda richiesta per effettuare l'eliminazione
+    const updateResponse = await fetch(`${linkProducts}${productId}`, {
+      ...requestOptionsDelete,
+    });
+
+    if (updateResponse.ok) {
+      const responseData = await updateResponse.json();
+      console.log("Prodotto eliminato con successo:", responseData);
+      alert("Prodotto eliminato con successo!");
+      getProducts(linkProducts);
+
+      // Azzero i valori del form
+      idToDelete.value = "";
+      nameToDelete.value = "";
+      descriptionToDelete.value = "";
+      brandToDelete.value = "";
+      imageUrlToDelete.value = "";
+      priceToDelete.value = "";
+      userIdToDelete.value = "";
+      createdAtToDelete.value = "";
+      updatedAtToDelete.value = "";
+    } else {
+      console.error(
+        "Errore nella richiesta:",
+        updateResponse.status,
+        updateResponse.statusText
+      );
+    }
+  } catch (error) {
+    console.error("Errore nella richiesta:", error.message);
+  }
+}
+
 async function addProduct() {
   // Evito il caricamento automatico della pagina
   event.preventDefault();
 
- // Li aggiungo ad un oggetto e lo trasformo in stringa
+  // Li aggiungo ad un oggetto e lo trasformo in stringa
   const newProductData = JSON.stringify({
     name: nameToAdd.value,
     description: descriptionToAdd.value,
@@ -402,48 +362,124 @@ async function addProduct() {
   }
 }
 
-// async function suggestImage(event) {
-//   const accessKey = "28jmzXXtV1tHdDkUgVSpV44dBtQBV4wfrevh04FubOxgqBGfZhnDSpgl";
-//   const linkImage = "https://api.pexels.com/v1/search?query=";
-//   const headerAuthorizationImage = { headers: { Authorization: `${accessKey}` } };
+async function suggestImage(event) {
+  const accessKey = "28jmzXXtV1tHdDkUgVSpV44dBtQBV4wfrevh04FubOxgqBGfZhnDSpgl";
+  const linkImage = "https://api.pexels.com/v1/search?query=";
+  const headerAuthorizationImage = {
+    headers: { Authorization: `${accessKey}` },
+  };
 
-//   let page = 1;
+  let page = 1;
 
-//   const inputName = document.getElementById("name");
-//   const productName = inputName.value;
+  const button = event.target;
+  const inputSection = button.closest("section");
+  const inputName = inputSection.querySelector(".search-image-input");
+  const productName = inputName.value;
+  console.log(productName);
+  console.log(`${linkImage}${productName}&page=${page}`);
 
-//   try {
-//     const response = await fetch(
-//       `${linkImage}${productName}&page=${page}`,
-//       headerAuthorizationImage
-//     );
-//     if (!response.ok) {
-//       throw new Error(
-//         `Errore nella richiesta: ${response.status} ${response.statusText}`
-//       );
-//     }
-//     const data = await response.json();
+  try {
+    const response = await fetch(
+      `${linkImage}${productName}&orientation=square&page=${page}`,
+      headerAuthorizationImage
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Errore nella richiesta: ${response.status} ${response.statusText}`
+      );
+    }
+    const data = await response.json();
 
-//     if (data.photos && data.photos.length > 0) {
-//       const suggestedImageUrl = data.photos[0].src.original;
-//       const imageUrlInput = document.getElementById("imageUrl");
-//       imageUrlInput.value = suggestedImageUrl; // Imposta l'URL dell'immagine nell'input
-//     } else {
-//       console.error("Nessuna immagine trovata per questo prodotto.");
-//     }
-//   } catch (error) {
-//     console.error(error.message);
-//   }
-// }
+    if (data.photos && data.photos.length > 0) {
+      const randomIndex = Math.floor(Math.random() * data.photos.length);
+      const suggestedImageUrl = data.photos[randomIndex].src.medium;
+      const imageUrlInputDiv = button.closest("div");
+      const imageUrlInput =
+        imageUrlInputDiv.querySelector(".search-image-link");
+      imageUrlInput.value = suggestedImageUrl; // Imposta l'URL dell'immagine nell'input
+    } else {
+      console.error("Nessuna immagine trovata per questo prodotto.");
+      alert("Nessuna immagine trovata per questo prodotto.");
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+}
 
+// Funzione per caricare i libri iniziali dalla API e visualizzarli
+function loadProducts(bookList) {
+  productList.innerHTML = "";
 
+  bookList.forEach((element) => {
+    const { name, price, _id } = element;
+    const formattedPrice = `€ ${price.toFixed(2)}`;
+
+    productList.innerHTML +=
+      /*html*/
+      `
+    <div class="row d-flex align-items-center product">
+      <div class="col-3 attribute-value product-id">
+          <span>${_id}</span>
+      </div>
+      <div class="col-4 attribute-value">
+          <span>${name}</span>
+      </div>
+      <div class="col-3 attribute-value">
+          <span>${formattedPrice}</span>
+      </div>
+      <div class="col-2">
+          <button class="btn btn-primary edit-button" data-toggle="modal" data-target="#staticBackdrop" >Edit</button>
+          <button class="btn btn-danger delete-button" data-toggle="modal" data-target="#deleteModal">Delete</button>
+      </div>
+    </div>
+
+   `;
+  });
+  // Dopo aver caricato il contenuto
+}
+
+// Funzione per ottenere i libri dalla API iniziale
+async function getProducts(link) {
+  try {
+    const response = await fetch(link, requestOptionsGet);
+    if (!response.ok) {
+      throw new Error(
+        `Errore nella richiesta: ${response.status} ${response.statusText}`
+      );
+    }
+    const data = await response.json();
+    totalProducts = data;
+    visibleProducts = data;
+    loadProducts(data);
+
+    // Rimuovi prodotti dal carrello che non sono più presenti in totalProducts
+    cartProducts = cartProducts.filter((cartProduct) => {
+      return totalProducts.some(
+        (totalProduct) => totalProduct._id === cartProduct._id
+      );
+    });
+
+    const cartProductsJSON = JSON.stringify(cartProducts);
+    localStorage.setItem("cartProducts", cartProductsJSON);
+
+    // Identifico gli edit e delete buttons nel DOM
+    document.querySelectorAll(".edit-button").forEach((button) => {
+      button.addEventListener("click", editButtonFunction);
+    });
+    document.querySelectorAll(".delete-button").forEach((button) => {
+      button.addEventListener("click", deleteButtonFunction);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+}
 
 // FUNZIONI: ESECUZIONE
 
 getProducts(linkProducts); // Chiamiamo la funzione getProducts() per ottenere e visualizzare i libri iniziali dalla API
-updateButton.addEventListener("click",updateButtonFunction)
-cancelButton.addEventListener("click",cancelButtonFunction)
+updateButton.addEventListener("click", updateButtonFunction);
+cancelButton.addEventListener("click", cancelButtonFunction);
 
-// document.querySelectorAll(".suggest-image-button").forEach((button) => {
-//   button.addEventListener("click", suggestImage);
-// });
+document.querySelectorAll(".suggest-image-button").forEach((button) => {
+  button.addEventListener("click", suggestImage);
+});
