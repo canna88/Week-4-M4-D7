@@ -61,9 +61,9 @@
 
     <section id="add-product">
         <div class="container p-0">
-            
 
-            <form>
+
+            <form id="form-add">
                 <div class="container">
                     <h3>Add New Product</h3>
                     <div class="row product-attributes d-flex align-items-center">
@@ -93,7 +93,7 @@
 
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="submit" class="btn btn-primary add-button" onclick="addProduct()">Add</button>
                         </div>
 
                     </div>
@@ -101,6 +101,118 @@
             </form>
         </div>
     </section>
+
+    <section id="update-product">
+        <div class="container p-0">
+            <form id="form-update">
+                <div class="container">
+                    <h3>Update Product</h3>
+                    <div class="row product-attributes d-flex align-items-center">
+                        <div class="col-2">
+                            <label for="update-id">ID:</label>
+                            <input type="text" class="form-control" id="update-id" name="update-id" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="update-userId">User ID:</label>
+                            <input type="text" class="form-control" id="update-userId" name="update-userId" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="update-name">Name:</label>
+                            <input type="text" class="form-control" id="update-name" name="update-name" required>
+                        </div>
+                        <div class="col-2">
+                            <label for="update-description">Description:</label>
+                            <input type="text" class="form-control" id="update-description" name="update-description"
+                                rows="3" required>
+                        </div>
+                        <div class="col-2">
+                            <label for="update-brand">Brand:</label>
+                            <input type="text" class="form-control" id="update-brand" name="update-brand" required>
+                        </div>
+                        <div class="col-2">
+                            <label for="update-imageUrl">Image URL:</label>
+                            <input type="url" class="form-control" id="update-imageUrl" name="update-imageUrl" required>
+                        </div>
+                        <div class="col-2">
+                            <label for="update-price">Price:</label>
+                            <input type="number" class="form-control" id="update-price" name="update-price" step="0.01"
+                                required>
+                        </div>
+                        <div class="col-2">
+                            <label for="update-createdAt">Created At:</label>
+                            <input type="text" class="form-control" id="update-createdAt" name="update-createdAt"
+                                readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="update-updatedAt">Updated At:</label>
+                            <input type="text" class="form-control" id="update-updatedAt" name="update-updatedAt"
+                                readonly>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success update-button">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    <section id="delete-product">
+        <div class="container p-0">
+            <form id="form-delete">
+                <div class="container">
+                    <h3>Delete Product</h3>
+                    <div class="row product-attributes d-flex align-items-center">
+                        <div class="col-2">
+                            <label for="delete-id">ID:</label>
+                            <input type="text" class="form-control" id="delete-id" name="delete-id" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="delete-userId">User ID:</label>
+                            <input type="text" class="form-control" id="delete-userId" name="delete-userId" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="delete-name">Name:</label>
+                            <input type="text" class="form-control" id="delete-name" name="delete-name" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="delete-description">Description:</label>
+                            <input type="text" class="form-control" id="delete-description" name="delete-description"
+                                rows="3" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="delete-brand">Brand:</label>
+                            <input type="text" class="form-control" id="delete-brand" name="delete-brand" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="delete-imageUrl">Image URL:</label>
+                            <input type="url" class="form-control" id="delete-imageUrl" name="delete-imageUrl" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="delete-price">Price:</label>
+                            <input type="number" class="form-control" id="delete-price" name="delete-price" step="0.01"
+                                readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="delete-createdAt">Created At:</label>
+                            <input type="text" class="form-control" id="delete-createdAt" name="delete-createdAt"
+                                readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="delete-updatedAt">Updated At:</label>
+                            <input type="text" class="form-control" id="delete-updatedAt" name="delete-updatedAt"
+                                readonly>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-danger cancel-button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
 
 
     <section id="product-list">
@@ -130,9 +242,10 @@
 
                 </div>
             </div>
-            
+
         </div>
     </section>
+
 
 
 

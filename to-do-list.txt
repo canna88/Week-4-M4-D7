@@ -71,7 +71,7 @@
             - creare metodo per UPDATE
             - creare metodo per REMOVE
             - EXTRA: scheda dettagli
-
+-   SPINNERS e LOADERS
 
 
 ARRAY PROVA

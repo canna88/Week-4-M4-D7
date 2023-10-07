@@ -225,20 +225,29 @@ function loadProducts(bookList) {
 }
 
 // Funzione per ottenere i libri dalla API iniziale
-function getProducts(link) {
+async function getProducts(link) {
+  try {
+    const response = await fetch(link, requestOptionsGet);
+    if (!response.ok) {
+      throw new Error(`Errore nella richiesta: ${response.status} ${response.statusText}`);
+    }
+    const data = await response.json();
+    totalProducts = data;
+    visibleProducts = data;
+    loadProducts(data);
 
-
-  fetch(link, requestOptionsGet)
-    .then((response) => response.json())
-    .then((data) => {
-      totalProducts = data;
-      visibleProducts = data;
-      loadProducts(data);
-    })
-    .catch((error) => {
-      console.log(error.message);
+    // Identifico gli edit e delete buttons nel DOM
+    document.querySelectorAll(".edit-button").forEach((button) => {
+      button.addEventListener("click", editButtonFunction);
     });
+    document.querySelectorAll(".delete-button").forEach((button) => {
+      button.addEventListener("click", deleteButtonFunction);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
 }
+
 
 
 
