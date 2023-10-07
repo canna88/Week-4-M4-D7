@@ -17,7 +17,7 @@
         - [DONE] togliere effetto selezionati
         - [DONE] inserire navbar e footer
         - [DONE] inserire nelle card +/- 1 prodotto
-        - aggiornare il carrello conseguentemente
+        - [DONE] aggiornare il carrello conseguentemente
         - EXTRA: ordinare
             - Ordine: prezzo più alto
             - Ordine: nome
@@ -28,38 +28,39 @@
         - [DONE] inserire navbar e footer
         - sistemare pagina tipo Amazon
 
-    - back_office.html
+    - [DONE] back_office.html
         - [DONE] inserire navbar e footer
         - [DONE] inserire righe prodotti
             - [DONE] pulsante: elimina
-                - si apre scelta "confermi eliminazione"
+                - [DONE] si apre scelta "confermi eliminazione"
             - [DONE] pulsante: modifica
-                - si apre un form per la modifica
+                - [DONE] si apre un form per la modifica
         - [DONE] inserire form creazione nuovo prodotto (ricordarsi prevent event default)
             - [DONE] bottone: crea nuovo prodotto
             - si apre il form a comparsa
             - [DONE] i campi devono essere obbligatori
             - [DONE] pulsante invia
             - [DONE] pulsante resetta
-            - quando si invia deve cancellare tutti i campi
-            - i campi devono essere predefiniti con il formato
-            - immagine: propone soluzioni da pexel
+            - [DONE] quando si invia deve cancellare tutti i campi
+            - [DONE] i campi devono essere predefiniti con il formato
+            - [DONE] immagine: propone soluzioni da pexel
 
 - CSS
-    - nascondere rimuovi rimuoviTutto (di conseguenze nel js)
-    - nascondere rimuovi totale e valore prodotti (di conseguenze nel js)
+    - [DONE] nascondere rimuovi rimuoviTutto (di conseguenze nel js)
+    - [DONE] nascondere rimuovi totale e valore prodotti (di conseguenze nel js)
     - animazione comprato
         - acquisto
         - rimuovo tutto
     - animazione caricamento card
     - animazione carrello compari/scompari
 
-- JAVASCRIPT
-    - API
+
+- [DONE] JAVASCRIPT
+    - [DONE] API
         -[DONE] creare account (IMPORTANTE: viene fornita vuota)
         - [DONE] ottenere il codice di autorizzazione
 
-    - CODICE PURO
+    - [DONE] CODICE PURO
         - frontpage.html
             - [DONE] controllare codice javascript precedentemente elaborato
             - [DONE] modificare con l'aggiunta del numero prodotti
@@ -71,7 +72,17 @@
             - [DONE] creare metodo per UPDATE
             - [DONE] creare metodo per REMOVE
             - EXTRA: scheda dettagli
--   SPINNERS e LOADERS
+
+
+- ULTIMI DETTAGLI
+    - inserire i prodotti
+    - SPINNERS e LOADERS
+    - sistemare le card della home-page
+    - controllare tutte le funzioni di fetch
+    - controllare che il carrello venga spostato da una parte all'altra
+    - sistemare il contenuto dei modali
+    - controllare refresh cart su script e script_dettagli_prodotto
+    - immagine dettagli_prodotto html
 
 
 ARRAY PROVA

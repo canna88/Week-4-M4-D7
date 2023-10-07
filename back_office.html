@@ -63,9 +63,97 @@
         <h2 id="back-office-title">Back Office Page</h2> <!-- Titolo aggiunto per indicare la pagina di back office -->
     </section>
 
+    <section id="add-product-option">
+        <div class="container p-0">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <div class="col-4">
+                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                            data-target="#addProductModal">
+                            Aggiungi Nuovo Prodotto
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Button trigger modal -->
+
+
+
+    <!-- Modal per l'aggiunta di un nuovo prodotto -->
+    <section id="add-product">
+
+        <div class="modal fade" id="addProductModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="addProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="addProductModalLabel">Add New Product</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container p-0">
+
+                            <form id="form-add">
+                                <div class="container">
+                                    <div class="row product-attributes d-flex align-items-center">
+                                        <div class="col-2">
+                                            <label for="name">Name:</label>
+                                            <input type="text" class="form-control search-image-input" id="name"
+                                                name="name" required>
+
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="description">Description:</label>
+                                            <input type="text" class="form-control" id="description" name="description"
+                                                rows="3" required>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="brand">Brand:</label>
+                                            <input type="text" class="form-control" id="brand" name="brand" required>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="imageUrl">Image URL:</label>
+                                            <input type="url" class="form-control search-image-link" id="imageUrl"
+                                                name="imageUrl" required>
+                                            <button type="submit" class="btn btn-primary suggest-image-button">Suggest
+                                                Image</button>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="price">Price:</label>
+                                            <input type="number" class="form-control" id="price" name="price"
+                                                step="0.01" required>
+
+                                        </div>
+                                        <div class="col-2 d-flex justify-content-center">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary add-button" onclick="addProduct()"
+                            data-dismiss="modal">Add Product</button>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- 
     <section id="add-product">
         <div class="container p-0">
-
 
             <form id="form-add">
                 <div class="container">
@@ -104,9 +192,9 @@
                 </div>
             </form>
         </div>
-    </section>
+    </section> -->
 
-    <section id="update-product">
+    <!-- <section id="update-product">
         <div class="container p-0">
             <form id="form-update">
                 <div class="container">
@@ -162,10 +250,10 @@
                 </div>
             </form>
         </div>
-    </section>
+    </section> -->
 
 
-    <section id="delete-product">
+    <!-- <section id="delete-product">
         <div class="container p-0">
             <form id="form-delete">
                 <div class="container">
@@ -218,8 +306,180 @@
                 </div>
             </form>
         </div>
+    </section> -->
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+        PROVA: UPDATE
+    </button>
+
+    <!-- Modal -->
+    <section id="update-product">
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="staticBackdropLabel">Update Product</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="container p-0">
+                            <form id="form-update">
+                                <div class="container">
+
+                                    <div class="row product-attributes d-flex align-items-center">
+                                        <div class="col-2">
+                                            <label for="update-id">ID:</label>
+                                            <input type="text" class="form-control" id="update-id" name="update-id"
+                                                readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="update-userId">User ID:</label>
+                                            <input type="text" class="form-control" id="update-userId"
+                                                name="update-userId" readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="update-name">Name:</label>
+                                            <input type="text" class="form-control search-image-input" id="update-name"
+                                                name="update-name" required>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="update-description">Description:</label>
+                                            <input type="text" class="form-control" id="update-description"
+                                                name="update-description" rows="3" required>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="update-brand">Brand:</label>
+                                            <input type="text" class="form-control" id="update-brand"
+                                                name="update-brand" required>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="update-imageUrl">Image URL:</label>
+                                            <input type="url" class="form-control search-image-link"
+                                                id="update-imageUrl" name="update-imageUrl" required>
+                                            <button type="submit" class="btn btn-primary suggest-image-button">Suggest
+                                                Image</button>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="update-price">Price:</label>
+                                            <input type="number" class="form-control" id="update-price"
+                                                name="update-price" step="0.01" required>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="update-createdAt">Created At:</label>
+                                            <input type="text" class="form-control" id="update-createdAt"
+                                                name="update-createdAt" readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="update-updatedAt">Updated At:</label>
+                                            <input type="text" class="form-control" id="update-updatedAt"
+                                                name="update-updatedAt" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success update-button" data-dismiss="modal">Update Product</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
+        PROVA: DELETE
+    </button>
+
+    <!-- Modal -->
+    <section id="delete-product">
+
+        <div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="deleteModalLabel">Delete Product</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container p-0">
+                            <form id="form-delete">
+                                <div class="container">
+                                    <div class="row product-attributes d-flex align-items-center">
+                                        <div class="col-2">
+                                            <label for="delete-id">ID:</label>
+                                            <input type="text" class="form-control" id="delete-id" name="delete-id"
+                                                readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete-userId">User ID:</label>
+                                            <input type="text" class="form-control" id="delete-userId"
+                                                name="delete-userId" readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete-name">Name:</label>
+                                            <input type="text" class="form-control" id="delete-name" name="delete-name"
+                                                readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete-description">Description:</label>
+                                            <input type="text" class="form-control" id="delete-description"
+                                                name="delete-description" rows="3" readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete-brand">Brand:</label>
+                                            <input type="text" class="form-control" id="delete-brand"
+                                                name="delete-brand" readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete-imageUrl">Image URL:</label>
+                                            <input type="url" class="form-control" id="delete-imageUrl"
+                                                name="delete-imageUrl" readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete-price">Price:</label>
+                                            <input type="number" class="form-control" id="delete-price"
+                                                name="delete-price" step="0.01" readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete-createdAt">Created At:</label>
+                                            <input type="text" class="form-control" id="delete-createdAt"
+                                                name="delete-createdAt" readonly>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete-updatedAt">Updated At:</label>
+                                            <input type="text" class="form-control" id="delete-updatedAt"
+                                                name="delete-updatedAt" readonly>
+                                        </div>
+                                        <div class="col-2 d-flex justify-content-center">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger cancel-button" data-dismiss="modal">Delete Product                                Product</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <section id="product-list">
@@ -252,8 +512,6 @@
 
         </div>
     </section>
-
-
 
 
     <!-- Rimuovo il carrello e il pulsante del carrello -->

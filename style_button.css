@@ -14,8 +14,8 @@
 /* Stile dei pulsanti di acquisto e salto */
 .buy-button {
   box-sizing: border-box;
-  margin: 0px;
-  width: 48%;
+  margin: 0 0 0 10px;
+  width: 40%;
 }
 
 .details-button {

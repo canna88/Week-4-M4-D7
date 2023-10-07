@@ -92,6 +92,79 @@ function rimuoviTutto() {
   }
 }
 
+// Funzione per caricare i libri iniziali dalla API e visualizzarli
+function loadProducts(productsList) {
+  searchResultDiv.innerHTML = "";
+
+  productsList.forEach((element) => {
+    const { name, imgUrl, brand, price, description, _id } = element;
+    const formattedPrice = `€ ${price.toFixed(2)}`;
+
+    searchResultDiv.innerHTML +=
+      /*html*/
+      `
+      <div class="card-container">
+      <div id="${_id}" class="card mb-5">
+        <div class="d-flex justify-content-center align-items-center">
+          <img
+            src="https://images.pexels.com/photos/8837498/pexels-photo-8837498.jpeg?auto=compress&cs=tinysrgb&h=350"
+            class="card-img-top" alt="Immagine del Prodotto 2">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">${name}</h5>
+          <h6 class="card-brand">${brand}</h6>
+          <div class="card-info">
+            <p class="card-text">${formattedPrice}</p>
+            <div class="quantity-control d-flex">
+              <button class="btn btn-secondary" onclick="decreaseQuantity(this)">-</button>
+              <div class="quantity" data-quantity="1">1</div>
+              <button class="btn btn-secondary" onclick="increaseQuantity(this)">+</button>
+              <button class="btn btn-primary buy-button" onclick="acquista(this)" data-action="buy">Buy</button>
+
+            </div>
+            <a href="/pagina_prodotto.html?id=789012" class="btn btn-info mt-2 details-button"
+              data-action="remove">Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+   `;
+  });
+  // Dopo aver caricato il contenuto
+}
+
+// Funzione per ottenere i libri dalla API iniziale
+async function getProducts(link) {
+  // // searchResultDiv.innerHTML =
+  // //   /*html*/
+  // //   `
+  // //   <div class="spinner-border custom-spinner" role="status">
+  // //     <span class="sr-only">Loading...</span>
+  // //   </div>
+  // //   `;
+
+  try {
+    const response = await fetch(link, requestOptionsGet);
+    if (!response.ok) {
+      throw new Error(
+        `Errore nella richiesta: ${response.status} ${response.statusText}`
+      );
+    }
+    const data = await response.json();
+    totalProducts = data;
+    visibleProducts = data;
+    loadProducts(data);
+
+    refreshCart(cartProducts)
+    const cartProductsJSON = JSON.stringify(cartProducts);
+    localStorage.setItem("cartProducts", cartProductsJSON);
+    
+
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 function addToCart(arrayCart, arrayTotal, productId, quantity) {
   // Verifica se il prodotto è già nel carrello
   const existingProduct = arrayCart.find(
@@ -158,8 +231,11 @@ function refreshCart(array) {
     cartTitle.innerText = "Cart";
 
     cartProducts.forEach((element) => {
-      const { name, imgUrl, price, _id } = element;
+      const { name, imgUrl, price, _id, quantity } = element;
       const formattedPrice = `€ ${price.toFixed(2)}`;
+      const formattedSubtotal = `€ ${(price.toFixed(2)) * quantity}`;
+
+
       sidecartDiv.innerHTML +=
         /*html*/
         `
@@ -179,6 +255,9 @@ function refreshCart(array) {
           <div class="product-price m-0 p-0">Price:</div>
           <span class="products-price-val mb-3">€ ${formattedPrice}</span>
         
+          <div class="product-subtotal m-0 p-0">Sub-total:</div>
+          <span class="products-subtotal-val mb-3">€ ${formattedSubtotal}</span>
+
         </div>
         <button class="btn btn-danger mt-2 del-button" onclick="rimuovi(this)" data-action="remove">Rimuovi</button>
     </li>
@@ -233,8 +312,6 @@ function rimuovi(button) {
     console.log("rimuovi", cartProducts);
   }
 }
-
-
 
 // FUNZIONI: ESECUZIONE
 

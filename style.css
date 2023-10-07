@@ -18,6 +18,10 @@ h1 {
   margin: 40px 0 60px 0;
 }
 
+#product-list, #main-products, #main-products {
+  min-height: 500px;
+  }
+
 /* Stile dell'input di ricerca */
 #search-input {
   width: 60%;
@@ -38,20 +42,7 @@ form {
   margin-bottom: 60px;
 }
 
-/* Stile del titolo del libro */
-.book-title {
-  font-size: 16px;
-  color: black;
-  font-weight: bold;
-}
 
-/* Stile del prezzo del libro */
-.book-price {
-  text-align: end;
-  font-size: 22px;
-  color: black;
-  font-weight: bold;
-}
 
 /* Stile del contenitore dei risultati di ricerca */
 .search-results {
@@ -82,32 +73,6 @@ form {
   }
 }
 
-/* Stile dei dettagli del prodotto nel carrello */
-.product-title,
-.product-quantity,
-.product-price {
-  font-size: 20px;
-  color: black;
-}
-
-/* Stile dei valori dei prodotti nel carrello */
-.products-title-val,
-.products-quantity-val,
-.products-price-val {
-  font-size: 20px;
-  text-align: start;
-  font-weight: bold;
-  color: black;
-}
-
-/* Stile dei valori del totale dei prodotti e del numero di prodotti nel carrello */
-#products-total,
-#products-value {
-  font-size: 20px;
-  text-align: start;
-  font-weight: bold;
-  color: white;
-}
 
 /* Media query per schermi di larghezza massima 768px */
 @media screen and (max-width: 768px) {
@@ -235,4 +200,9 @@ section {
   font-weight: bold;
 }
 
-
+.modal-header {
+  background-color: #343a40;
+  font-weight: bold;
+  color: white; /* Colore del testo dell'header */
+  border-bottom: none; /* Rimuove la linea inferiore dell'header */
+}

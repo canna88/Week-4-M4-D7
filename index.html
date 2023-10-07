@@ -95,6 +95,31 @@
       </div>
 
       <ul class="nav flex-column">
+
+      </ul>
+
+      <ul class="prova flex-column">
+        <li id="${_id}" class="card-cart nav-link d-flex flex-wrap flex-row my-3">
+          <div class="col-4 p-0">
+            <img class="cart-img img-fluid" src=${imgUrl} alt="">
+          </div>
+          <div class="col-8 text-light d-flex align-items-start flex-column m-0">
+
+            <div class="product-title m-0 p-0">Name:</div>
+            <span class="products-title-val mb-3">${name}</span>
+
+            <div class="product-quantity m-0 p-0">Quantity:</div>
+            <span class="products-quantity-val mb-3">${quantity}</span>
+
+            <div class="product-price m-0 p-0">Price:</div>
+            <span class="products-price-val mb-3">€ ${formattedPrice}</span>
+
+            <div class="product-subtotal m-0 p-0">Sub-total:</div>
+            <span class="products-subtotal-val mb-3">€ ${formattedSubtotal}</span>
+
+          </div>
+          <button class="btn btn-danger mt-2 del-button" onclick="rimuovi(this)" data-action="remove">Rimuovi</button>
+        </li>
       </ul>
 
     </div>
@@ -106,23 +131,25 @@
       <div class="search-results row">
 
         <!-- Primo Prodotto -->
-        <div  class="card-container">
+        <div class="card-container">
           <div id="${_id}" class="card mb-5">
-            <img
-              src="https://images.pexels.com/photos/8837498/pexels-photo-8837498.jpeg?auto=compress&cs=tinysrgb&h=350"
-              class="card-img-top" alt="Immagine del Prodotto 2">
+            <div class="d-flex justify-content-center align-items-center">
+              <img
+                src="https://images.pexels.com/photos/8837498/pexels-photo-8837498.jpeg?auto=compress&cs=tinysrgb&h=350"
+                class="card-img-top" alt="Immagine del Prodotto 2">
+            </div>
             <div class="card-body">
-              <h5 class="card-title book-title">Nome Prodotto 2</h5>
-              <p class="card-text book-author">Descrizione del Prodotto 2</p>
-              <div class="m-0 card-info">
-                <p class="card-text book-price">$24.99</p>
-                <p class="product-id d-none">789012</p>
-                <div class="quantity-control mt-2 d-flex">
+              <h5 class="card-title">Nome Prodotto 2</h5>
+              <h6 class="card-brand">Nokia</h6>
+              <div class="card-info">
+                <p class="card-price">$24.99</p>
+                <div class="quantity-control d-flex">
                   <button class="btn btn-secondary" onclick="decreaseQuantity(this)">-</button>
-                  <div class="quantity"data-quantity="1">1</div>
+                  <div class="quantity d-flex justify-content-center align-items-center" data-quantity="1">1</div>
                   <button class="btn btn-secondary" onclick="increaseQuantity(this)">+</button>
+                  <button class="btn btn-primary buy-button" onclick="acquista(this)" data-action="buy">Buy</button>
+
                 </div>
-                <button class="btn btn-primary mt-2 buy-button" onclick="acquista(this)" data-action="buy">Buy</button>
                 <a href="/pagina_prodotto.html?id=789012" class="btn btn-info mt-2 details-button"
                   data-action="remove">Details</a>
               </div>
@@ -132,7 +159,7 @@
 
         <!-- Secondo Prodotto -->
 
-        <div  class="card-container">
+        <div class="card-container">
           <div id="${_id}" class="card mb-5">
             <img
               src="https://images.pexels.com/photos/8837498/pexels-photo-8837498.jpeg?auto=compress&cs=tinysrgb&h=350"
@@ -155,7 +182,7 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
 
