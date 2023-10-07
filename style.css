@@ -211,3 +211,28 @@ form {
   font-size: 24px;
   margin-top: 10px;
 }
+
+/* BACKOFFICE */
+section {
+  margin: 0 0 50px 0;
+}
+
+.product,
+.no-items-message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+}
+
+.product-attributes {
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+

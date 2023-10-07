@@ -1,72 +1,14 @@
-const arrayElementi = [
-  {
-    "_id": "sdgergr",
-    "name": "3310 cellphone",
-    "description": "An unforgettable icon.",
-    "brand": "Nokia",
-    "imageUrl": "https://bit.ly/3ceXjRa",
-    "price": 100,
-    "userId": "admin",
-    "createdAt": "2021-09-19T09:32:10.535Z",
-    "updatedAt": "2021-09-19T09:32:10.535Z",
-    "__v": 0
-  },
-  {
-    "_id": "2dfeh3s",
-    "name": "Smartphone X",
-    "description": "The latest and greatest.",
-    "brand": "Samsung",
-    "imageUrl": "https://bit.ly/3cAweFJ",
-    "price": 800,
-    "userId": "user123",
-    "createdAt": "2021-09-20T15:45:22.123Z",
-    "updatedAt": "2021-09-20T15:45:22.123Z",
-    "__v": 0
-  },
-  {
-    "_id": "f34g5dh",
-    "name": "E-Book Reader",
-    "description": "Read your favorite books digitally.",
-    "brand": "Amazon",
-    "imageUrl": "https://bit.ly/3nR2YK9",
-    "price": 150,
-    "userId": "user456",
-    "createdAt": "2021-09-21T12:18:05.789Z",
-    "updatedAt": "2021-09-21T12:18:05.789Z",
-    "__v": 0
-  },
-  {
-    "_id": "gsd8h7f",
-    "name": "Wireless Headphones",
-    "description": "Enjoy music without the cords.",
-    "brand": "Sony",
-    "imageUrl": "https://bit.ly/3AlnhtP",
-    "price": 120,
-    "userId": "user789",
-    "createdAt": "2021-09-22T08:57:30.222Z",
-    "updatedAt": "2021-09-22T08:57:30.222Z",
-    "__v": 0
-  },
-  {
-    "_id": "p3j8sd9",
-    "name": "Gaming Console",
-    "description": "Experience the latest games.",
-    "brand": "Microsoft",
-    "imageUrl": "https://bit.ly/3yTrJuj",
-    "price": 400,
-    "userId": "user1011",
-    "createdAt": "2021-09-23T17:29:15.654Z",
-    "updatedAt": "2021-09-23T17:29:15.654Z",
-    "__v": 0
-  }
-];
-
-
-
 // Identificazione elementi nel DOM e l'API
 const searchResultDiv = document.querySelector(".search-results");
 const sidecartDiv = document.querySelector(".nav");
-const linkProducts = "https://striveschool-api.herokuapp.com/books";
+const linkProducts = "https://striveschool-api.herokuapp.com/api/product/";
+const requestOptionsGet = {
+  method: 'GET',
+  headers: {
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFmMTQxOWM3Mjg4NzAwMTg4N2ZmMWIiLCJpYXQiOjE2OTY1MzU1NzcsImV4cCI6MTY5Nzc0NTE3N30.7UuxGWrA8TVoFpfvg1a-mX0FXSBmdigPkRW-UNqC6h8',
+    // Aggiungi altri header se necessario
+  },
+};
 const searchInput = document.getElementById("search-input");
 const reloadButton = document.getElementById("reload-button");
 const cartHeader = document.querySelector(".cart-header");
@@ -252,7 +194,7 @@ function loadProducts(bookList) {
   searchResultDiv.innerHTML = "";
 
   bookList.forEach((element) => {
-    const { title, img, price, category, asin } = element;
+    const { name, img, price, description, _id } = element;
     const formattedPrice = `€ ${price.toFixed(2)}`;
 
     searchResultDiv.innerHTML +=
@@ -263,15 +205,15 @@ function loadProducts(bookList) {
           <img src=${img} class="card-img-top"
             alt="Immagine del Libro">
           <div class="card-body">
-          <h5 class="card-title book-title">${title}</h5>
-          <p class="card-text book-author">${category}</p>
+          <h5 class="card-title book-title">${name}</h5>
+          <p class="card-text book-author">${description}</p>
             <div class="m-0 card-info">
 
               <p class="card-text book-price">${formattedPrice}</p>
-              <p class="book-asin d-none">${asin}</p>
+              <p class="book-asin d-none">${_id}</p>
 
               <button class="btn btn-primary mt-2 buy-button" onclick="acquista(this)" data-action="buy">Buy</button>
-              <a href="/pagina_prodotto.html?id=${asin}" class="btn btn-info mt-2 details-button" data-action="remove">Details</a>
+              <a href="/pagina_prodotto.html?id=${_id}" class="btn btn-info mt-2 details-button" data-action="remove">Details</a>
 
               </div>
           </div>
@@ -284,7 +226,9 @@ function loadProducts(bookList) {
 
 // Funzione per ottenere i libri dalla API iniziale
 function getProducts(link) {
-  fetch(link)
+
+
+  fetch(link, requestOptionsGet)
     .then((response) => response.json())
     .then((data) => {
       totalProducts = data;
@@ -295,6 +239,7 @@ function getProducts(link) {
       console.log(error.message);
     });
 }
+
 
 
 // FUNZIONI: ESECUZIONE

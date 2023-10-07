@@ -30,17 +30,17 @@
 
     - back_office.html
         - [DONE] inserire navbar e footer
-        - inserire righe prodotti
-            - pulsante: elimina
+        - [DONE] inserire righe prodotti
+            - [DONE] pulsante: elimina
                 - si apre scelta "confermi eliminazione"
-            - pulsante: modifica
+            - [DONE] pulsante: modifica
                 - si apre un form per la modifica
-        - inserire form creazione nuovo prodotto (ricordarsi prevent event default)
-            - bottone: crea nuovo prodotto
+        - [DONE] inserire form creazione nuovo prodotto (ricordarsi prevent event default)
+            - [DONE] bottone: crea nuovo prodotto
             - si apre il form a comparsa
-            - i campi devono essere obbligatori
-            - pulsante invia
-            - pulsante resetta
+            - [DONE] i campi devono essere obbligatori
+            - [DONE] pulsante invia
+            - [DONE] pulsante resetta
             - quando si invia deve cancellare tutti i campi
             - i campi devono essere predefiniti con il formato
             - immagine: propone soluzioni da pexel
@@ -138,3 +138,14 @@ const arrayElementi = [
     "__v": 0
   }
 ];
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFmMTQxOWM3Mjg4NzAwMTg4N2ZmMWIiLCJpYXQiOjE2OTY1MzU1NzcsImV4cCI6MTY5Nzc0NTE3N30.7UuxGWrA8TVoFpfvg1a-mX0FXSBmdigPkRW-UNqC6h8
+
+You can use it in your request setting the headers in this way:
+
+fetch("https://striveschool-api.herokuapp.com/api/put-your-endpoint-here/", {
+headers: {
+"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFmMTQxOWM3Mjg4NzAwMTg4N2ZmMWIiLCJpYXQiOjE2OTY1MzU1NzcsImV4cCI6MTY5Nzc0NTE3N30.7UuxGWrA8TVoFpfvg1a-mX0FXSBmdigPkRW-UNqC6h8"
+}
+})
