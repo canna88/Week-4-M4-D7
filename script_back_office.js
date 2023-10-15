@@ -44,13 +44,6 @@ let cartProducts = [];
 // Ottieni la stringa JSON dal local storage con la chiave specifica
 const cartProductsJSON = localStorage.getItem("cartProducts");
 cartProducts = JSON.parse(cartProductsJSON);
-// Ora cartProducts contiene i dati recuperati dal local storage
-if (cartProducts) {
-  refreshCart(cartProducts);
-} else {
-  cartProducts = [];
-}
-
 const productList = document.querySelector(".product-list-container");
 
 // Identificazione pulsanti nel DOM
@@ -197,6 +190,9 @@ async function updateButtonFunction(event) {
       userIdToUpdate.value = "";
       createdAtToUpdate.value = "";
       updatedAtToUpdate.value = "";
+
+      // Chiudi il modal
+      $("#staticBackdrop").modal("hide");
     } else {
       console.error(
         "Errore nella richiesta:",
@@ -210,9 +206,6 @@ async function updateButtonFunction(event) {
 }
 
 async function deleteButtonFunction(event) {
-  // Evito il caricamento automatico della pagina
-  event.preventDefault();
-
   // Seleziona il modal
   const modal = document.getElementById("deleteModal");
   $(modal).modal("show");
@@ -305,6 +298,9 @@ async function cancelButtonFunction(event) {
       userIdToDelete.value = "";
       createdAtToDelete.value = "";
       updatedAtToDelete.value = "";
+
+      // Chiudi il modal
+      $("#deleteModal").modal("hide");
     } else {
       console.error(
         "Errore nella richiesta:",
@@ -350,6 +346,9 @@ async function addProduct() {
       brandToAdd.value = "";
       imageUrlToAdd.value = "";
       priceToAdd.value = "";
+
+      // Chiudi il modal
+      $("#addProductModal").modal("hide");
     } else {
       console.error(
         "Errore nella richiesta:",
@@ -362,56 +361,58 @@ async function addProduct() {
   }
 }
 
-async function suggestImage(event) {
-  const accessKey = "28jmzXXtV1tHdDkUgVSpV44dBtQBV4wfrevh04FubOxgqBGfZhnDSpgl";
-  const linkImage = "https://api.pexels.com/v1/search?query=";
-  const headerAuthorizationImage = {
-    headers: { Authorization: `${accessKey}` },
-  };
+// async function suggestImage(event) {
+//   event.preventDefault()
+//   const accessKey = "28jmzXXtV1tHdDkUgVSpV44dBtQBV4wfrevh04FubOxgqBGfZhnDSpgl";
+//   const linkImage = "https://api.pexels.com/v1/search?query=";
+//   const headerAuthorizationImage = {
+//     headers: { Authorization: `${accessKey}` },
+//   };
 
-  let page = 1;
+//   let page = 1;
 
-  const button = event.target;
-  const inputSection = button.closest("section");
-  const inputName = inputSection.querySelector(".search-image-input");
-  const productName = inputName.value;
-  console.log(productName);
-  console.log(`${linkImage}${productName}&page=${page}`);
+//   const button = event.target;
+//   const inputSection = button.closest("section");
+//   const inputName = inputSection.querySelector(".search-image-input");
+//   const productName = inputName.value;
+//   console.log(productName);
+//   console.log(`${linkImage}${productName}&orientation=square&page=${page}`);
 
-  try {
-    const response = await fetch(
-      `${linkImage}${productName}&orientation=square&page=${page}`,
-      headerAuthorizationImage
-    );
-    if (!response.ok) {
-      throw new Error(
-        `Errore nella richiesta: ${response.status} ${response.statusText}`
-      );
-    }
-    const data = await response.json();
+//   try {
+//     const response = await fetch(
+//       `${linkImage}${productName}&orientation=square&page=${page}`,
+//       headerAuthorizationImage
+//     );
+//     if (!response.ok) {
+//       throw new Error(
+//         `Errore nella richiesta: ${response.status} ${response.statusText}`
+//       );
+//     }
+//     const data = await response.json();
 
-    if (data.photos && data.photos.length > 0) {
-      const randomIndex = Math.floor(Math.random() * data.photos.length);
-      const suggestedImageUrl = data.photos[randomIndex].src.medium;
-      const imageUrlInputDiv = button.closest("div");
-      const imageUrlInput =
-        imageUrlInputDiv.querySelector(".search-image-link");
-      imageUrlInput.value = suggestedImageUrl; // Imposta l'URL dell'immagine nell'input
-    } else {
-      console.error("Nessuna immagine trovata per questo prodotto.");
-      alert("Nessuna immagine trovata per questo prodotto.");
-    }
-  } catch (error) {
-    console.error(error.message);
-  }
-}
+//     if (data.photos && data.photos.length > 0) {
+//       const randomIndex = Math.floor(Math.random() * data.photos.length);
+//       const suggestedImageUrl = data.photos[randomIndex].src.medium;
+//       const imageUrlInputDiv = button.closest("div");
+//       const imageUrlInput =
+//         imageUrlInputDiv.querySelector(".search-image-link");
+//       imageUrlInput.value = suggestedImageUrl; // Imposta l'URL dell'immagine nell'input
+//     } else {
+//       console.error("Nessuna immagine trovata per questo prodotto.");
+//       alert("Nessuna immagine trovata per questo prodotto.");
+//     }
+//   } catch (error) {
+//     console.error(error.message);
+//   }
+// }
 
 // Funzione per caricare i libri iniziali dalla API e visualizzarli
+
 function loadProducts(bookList) {
   productList.innerHTML = "";
 
   bookList.forEach((element) => {
-    const { name, price, _id } = element;
+    const { name, price, _id, brand } = element;
     const formattedPrice = `€ ${price.toFixed(2)}`;
 
     productList.innerHTML +=
@@ -419,17 +420,22 @@ function loadProducts(bookList) {
       `
     <div class="row d-flex align-items-center product">
       <div class="col-3 attribute-value product-id">
-          <span>${_id}</span>
+          <span class="truncate-text">${_id}</span>
       </div>
-      <div class="col-4 attribute-value">
-          <span>${name}</span>
+      <div class="col-1 attribute-value">
       </div>
-      <div class="col-3 attribute-value">
+      <div class="col-2 attribute-value">
+          <span class="truncate-text">${name}</span>
+      </div>
+      <div class="col-2 attribute-value">
+          <span class="truncate-text">${brand}</span>
+      </div>
+      <div class="col-2 attribute-value">
           <span>${formattedPrice}</span>
       </div>
-      <div class="col-2">
-          <button class="btn btn-primary edit-button" data-toggle="modal" data-target="#staticBackdrop" >Edit</button>
-          <button class="btn btn-danger delete-button" data-toggle="modal" data-target="#deleteModal">Delete</button>
+      <div class="col-2 d-flex">
+          <button class="btn btn-primary edit-button w-100 w-md-50" data-toggle="modal" data-target="#staticBackdrop" >Edit</button>
+          <button class="btn btn-danger delete-button w-100 w-md-50 ml-2" data-toggle="modal" data-target="#deleteModal">Delete</button>
       </div>
     </div>
 
@@ -476,10 +482,20 @@ async function getProducts(link) {
 
 // FUNZIONI: ESECUZIONE
 
-getProducts(linkProducts); // Chiamiamo la funzione getProducts() per ottenere e visualizzare i libri iniziali dalla API
-updateButton.addEventListener("click", updateButtonFunction);
-cancelButton.addEventListener("click", cancelButtonFunction);
+// Ora cartProducts contiene i dati recuperati dal local storage
+// if (cartProducts) {
+//   refreshCart(cartProducts);
+// } else {
+//   cartProducts = [];
+// }
 
-document.querySelectorAll(".suggest-image-button").forEach((button) => {
-  button.addEventListener("click", suggestImage);
-});
+getProducts(linkProducts); // Chiamiamo la funzione getProducts() per ottenere e visualizzare i libri iniziali dalla API
+// updateButton.addEventListener("click", updateButtonFunction);
+
+// cancelButton.addEventListener("click", cancelButtonFunction);
+
+console.log(cartProducts);
+
+// document.querySelectorAll(".suggest-image-button").forEach((button) => {
+//   button.addEventListener("click", suggestImage);
+// });

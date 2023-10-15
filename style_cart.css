@@ -26,7 +26,6 @@
 
 /* Stile delle immagini dei prodotti nel carrello */
 .cart-img {
-  height: 80%;
   max-height: 300px;
   overflow: hidden;
   border-radius: 10px;
@@ -45,8 +44,7 @@
 /* Stile dei dettagli del prodotto nel carrello */
 .product-title,
 .product-quantity,
-.product-price,
-.product-subtotal {
+.product-price {
   font-size: 15px;
   color: black;
   text-align: start;
@@ -56,13 +54,26 @@
 /* Stile dei valori dei prodotti nel carrello */
 .products-title-val,
 .products-quantity-val,
-.products-price-val,
-.products-subtotal-val {
+.products-price-val {
   font-size: 15px;
   text-align: start;
-  color: rgb(36, 153, 0);
+    font-weight:normal;
+
 }
 
+.product-subtotal {
+  font-size: 20px;
+  color: rgb(209, 126, 3);
+  text-align: start;
+  
+}
+
+.products-subtotal-val {
+  font-size: 18px;
+  text-align: start;
+  color: rgb(255, 196, 0);
+  font-weight: bold;
+}
 /* Stile dei valori del totale dei prodotti e del numero di prodotti nel carrello */
 #products-total,
 #products-value {

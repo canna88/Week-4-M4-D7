@@ -29,7 +29,7 @@
 <body>
   <section id="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">TechStore</a>
+      <a class="navbar-brand" href="index.html">TechStore</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -75,7 +75,6 @@
 
   </section>
 
-
   <section id="title">
     <h1>Your tech online store</h1>
     <h2 id="back-office-title">Product Page</h2> <!-- Titolo aggiunto per indicare la pagina di back office -->
@@ -94,6 +93,31 @@
       </div>
 
       <ul class="nav flex-column">
+
+      </ul>
+
+      <ul class="prova flex-column">
+        <!-- <li id="${_id}" class="card-cart nav-link d-flex flex-wrap flex-row my-3">
+          <div class="col-4 p-0">
+            <img class="cart-img img-fluid" src=${imgUrl} alt="">
+          </div>
+          <div class="col-8 text-light d-flex align-items-start flex-column m-0">
+
+            <div class="product-title m-0 p-0">Name:</div>
+            <span class="products-title-val mb-3">${name}</span>
+
+            <div class="product-quantity m-0 p-0">Quantity:</div>
+            <span class="products-quantity-val mb-3">${quantity}</span>
+
+            <div class="product-price m-0 p-0">Price:</div>
+            <span class="products-price-val mb-3">€ ${formattedPrice}</span>
+
+            <div class="product-subtotal m-0 p-0">Sub-total:</div>
+            <span class="products-subtotal-val mb-3">€ ${formattedSubtotal}</span>
+
+          </div>
+          <button class="btn btn-danger mt-2 del-button" onclick="rimuovi(this)" data-action="remove">Rimuovi</button>
+        </li> -->
       </ul>
 
     </div>
@@ -102,26 +126,6 @@
 
   <section id="main-products">
     <div class="search-results row">
-
-      <!-- <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-      </div> -->
-
-      <!-- Card for Book Details -->
-      <div class="card-container-details-page col-12">
-        <div class="card card-details">
-          <div class="w-100 d-flex justify-content-center align-items-center">
-            <img src="${imgSrc}" alt="Product Image" class="center-image product-image">
-          </div>
-          <div class="card-body">
-            <h2 class="product-id">Product ID: ${_id}</h2>
-            <h2 class="product-title">Name: ${name}</h2>
-            <p class="product-description">${description}</p>
-            <p class="product-price">${formattedPrice}</p>
-          </div>
-        </div>
-      </div>
-
     </div>
 
   </section>

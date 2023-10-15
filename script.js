@@ -1,46 +1,16 @@
-// Identificazione elementi nel DOM e l'API
-const searchResultDiv = document.querySelector(".search-results");
-const sidecartDiv = document.querySelector(".nav");
-const linkProducts = "https://striveschool-api.herokuapp.com/api/product/";
-const requestOptionsGet = {
-  method: "GET",
-  headers: {
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFmMTQxOWM3Mjg4NzAwMTg4N2ZmMWIiLCJpYXQiOjE2OTY1MzU1NzcsImV4cCI6MTY5Nzc0NTE3N30.7UuxGWrA8TVoFpfvg1a-mX0FXSBmdigPkRW-UNqC6h8",
-    // Aggiungi altri header se necessario
-  },
-};
-const searchInput = document.getElementById("search-input");
-const reloadButton = document.getElementById("reload-button");
-const cartHeader = document.querySelector(".cart-header");
-const cartTitle = document.querySelector(".cart-title");
-
-// Pulisco gli elemnti che mi interessano nel DOM
-// searchResultDiv.innerHTML = "";
-sidecartDiv.innerHTML = "";
-
-// VARIABILI E ARRAYS
-let totalProducts = [];
-let visibleProducts = [];
-let cartProducts = [];
-
-// Ottieni la stringa JSON dal local storage con la chiave specifica
-const cartProductsJSON = localStorage.getItem('cartProducts');
-cartProducts = JSON.parse(cartProductsJSON);
-// Ora cartProducts contiene i dati recuperati dal local storage
-if (cartProducts) {
-  refreshCart(cartProducts)
-} else {
-  cartProducts = []
-}
-
 //  FUNZIONI: DICHIARAZIONE
+
+//Salvare
+function cartToLocalStorage(array) {
+  const cartProductsJSON = JSON.stringify(array);
+  localStorage.setItem("cartProducts", cartProductsJSON);
+}
 
 // Funzione per filtrare e visualizzare i libri in base alla ricerca dell'utente
 function filterProducts() {
   const searchText = searchInput.value.toLowerCase(); // Testo inserito nell'input in minuscolo
-  visibleProducts = totalProducts.filter((book) =>
-    book.title.toLowerCase().includes(searchText)
+  visibleProducts = totalProducts.filter((product) =>
+    product.name.toLowerCase().includes(searchText)
   );
   searchResultDiv.innerHTML = ""; // Svuota la visualizzazione attuale dei libri
   loadProducts(visibleProducts); // Carica i libri filtrat
@@ -63,7 +33,7 @@ function toggleCart() {
 // Funzione per calcolare il prezzo totale dei prodotti nel carrello
 function sumPrices(products) {
   const totalPrice = products.reduce((accumulator, currentProduct) => {
-    return accumulator + currentProduct.price;
+    return accumulator + currentProduct.price * currentProduct.quantity;
   }, 0);
   const formattedTotalPrice = totalPrice.toFixed(2);
   const totalPriceWithEuroSymbol = `€ ${formattedTotalPrice}`;
@@ -81,15 +51,13 @@ function sumProducts(products) {
 // Funzione chiamata quando l'utente rimuove tutti i libri dal carrello
 function rimuoviTutto() {
   sidecartDiv.innerHTML = "";
-  console.log("Prima dell'eliminazione: ", cartProducts);
   cartProducts = [];
-  console.log("Dopo l'eliminazione: ", cartProducts);
-  console.log(cartProducts.length);
-
   if (cartProducts.length === 0) {
     cartHeader.innerHTML = "";
     cartTitle.innerText = "Your cart is empty";
   }
+
+  cartToLocalStorage(cartProducts);
 }
 
 // Funzione per caricare i libri iniziali dalla API e visualizzarli
@@ -97,7 +65,7 @@ function loadProducts(productsList) {
   searchResultDiv.innerHTML = "";
 
   productsList.forEach((element) => {
-    const { name, imgUrl, brand, price, description, _id } = element;
+    const { name, imageUrl, brand, price, description, _id } = element;
     const formattedPrice = `€ ${price.toFixed(2)}`;
 
     searchResultDiv.innerHTML +=
@@ -107,22 +75,24 @@ function loadProducts(productsList) {
       <div id="${_id}" class="card mb-5">
         <div class="d-flex justify-content-center align-items-center">
           <img
-            src="https://images.pexels.com/photos/8837498/pexels-photo-8837498.jpeg?auto=compress&cs=tinysrgb&h=350"
+            src=${imageUrl}
             class="card-img-top" alt="Immagine del Prodotto 2">
         </div>
         <div class="card-body">
-          <h5 class="card-title">${name}</h5>
+        <div>          
+        <h5 class="card-title">${name}</h5>
           <h6 class="card-brand">${brand}</h6>
+          </div>
           <div class="card-info">
-            <p class="card-text">${formattedPrice}</p>
+            <p class="card-price">${formattedPrice}</p>
             <div class="quantity-control d-flex">
               <button class="btn btn-secondary" onclick="decreaseQuantity(this)">-</button>
-              <div class="quantity" data-quantity="1">1</div>
+              <div class="quantity d-flex justify-content-center align-items-center" data-quantity="1">1</div>
               <button class="btn btn-secondary" onclick="increaseQuantity(this)">+</button>
               <button class="btn btn-primary buy-button" onclick="acquista(this)" data-action="buy">Buy</button>
 
             </div>
-            <a href="/pagina_prodotto.html?id=789012" class="btn btn-info mt-2 details-button"
+            <a href="/pagina_prodotto.html?id=${_id}" class="btn btn-info mt-2 details-button"
               data-action="remove">Details</a>
           </div>
         </div>
@@ -135,13 +105,13 @@ function loadProducts(productsList) {
 
 // Funzione per ottenere i libri dalla API iniziale
 async function getProducts(link) {
-  // // searchResultDiv.innerHTML =
-  // //   /*html*/
-  // //   `
-  // //   <div class="spinner-border custom-spinner" role="status">
-  // //     <span class="sr-only">Loading...</span>
-  // //   </div>
-  // //   `;
+  searchResultDiv.innerHTML =
+    /*html*/
+    `
+    <div class="spinner-border custom-spinner" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    `;
 
   try {
     const response = await fetch(link, requestOptionsGet);
@@ -154,12 +124,7 @@ async function getProducts(link) {
     totalProducts = data;
     visibleProducts = data;
     loadProducts(data);
-
-    refreshCart(cartProducts)
-    const cartProductsJSON = JSON.stringify(cartProducts);
-    localStorage.setItem("cartProducts", cartProductsJSON);
-    
-
+    refreshCart(cartProducts);
   } catch (error) {
     console.error(error.message);
   }
@@ -177,6 +142,7 @@ function addToCart(arrayCart, arrayTotal, productId, quantity) {
   } else {
     // Se il prodotto non è presente, aggiungilo al carrello con la quantità specificata
     let productToAdd = arrayTotal.find((product) => product._id === productId);
+
     productToAdd = { ...productToAdd, quantity };
     arrayCart.push(productToAdd);
   }
@@ -192,10 +158,12 @@ function acquista(button) {
   );
   let quantity = parseInt(quantityElement.textContent);
   // Trova l'ID del prodotto della card
+
   const productId = card.querySelector(".card").id;
   addToCart(cartProducts, totalProducts, productId, quantity);
+  quantityElement.innerText = 1;
   refreshCart(cartProducts);
-  quantityElement.textContent = initialQuantity.toString(); // Reimposta la quantità a 1
+  quantityElement.textContent = "1"; // Reimposta la quantità a 1
 }
 
 function increaseQuantity(button) {
@@ -228,46 +196,41 @@ function refreshCart(array) {
     cartTitle.innerText = "Your cart is empty";
     sidecartDiv.innerHTML = "";
   } else {
+    sidecartDiv.innerHTML = "";
     cartTitle.innerText = "Cart";
-
-    cartProducts.forEach((element) => {
-      const { name, imgUrl, price, _id, quantity } = element;
+    console.log(array);
+    array.forEach((element) => {
+      const { name, imageUrl, price, _id, quantity } = element;
       const formattedPrice = `€ ${price.toFixed(2)}`;
-      const formattedSubtotal = `€ ${(price.toFixed(2)) * quantity}`;
-
+      const formattedSubtotal = `€ ${(price * quantity).toFixed(2)}`;
 
       sidecartDiv.innerHTML +=
         /*html*/
         `
       <li id = "${_id}" class="card-cart nav-link d-flex flex-wrap flex-row my-3">
         <div class="col-4 p-0">
-          <img class="cart-img img-fluid" src=${imgUrl}
+          <img class="cart-img img-fluid" src="${imageUrl}"
             alt="">
         </div>
         <div class="col-8 text-light d-flex align-items-start flex-column m-0">
 
-          <div class="product-title m-0 p-0">Name:</div>
+          <div class="product-title mb-1 p-0">Name:
           <span class="products-title-val mb-3">${name}</span>
-
-          <div class="product-quantity m-0 p-0">Quantity:</div>
+          </div>
+          <div class="product-quantity mb-1 p-0">Quantity:
           <span class="products-quantity-val mb-3">${quantity}</span>
-
-          <div class="product-price m-0 p-0">Price:</div>
-          <span class="products-price-val mb-3">€ ${formattedPrice}</span>
-        
-          <div class="product-subtotal m-0 p-0">Sub-total:</div>
-          <span class="products-subtotal-val mb-3">€ ${formattedSubtotal}</span>
-
+          </div>
+          <div class="product-price mb-3 p-0">Price:
+          <span class="products-price-val mb-3">${formattedPrice}</span>
+          </div>
+          <div class="product-subtotal mb-1 p-0">Sub-total:
+          <span class="products-subtotal-val mb-3">${formattedSubtotal}</span>
+          </div>
         </div>
         <button class="btn btn-danger mt-2 del-button" onclick="rimuovi(this)" data-action="remove">Rimuovi</button>
     </li>
     `;
     });
-
-    const numeroProdotti = document.getElementById("products-value");
-    const valoreCarrello = document.getElementById("products-total");
-    numeroProdotti.innerText = sumProducts(cartProducts);
-    valoreCarrello.innerText = sumPrices(cartProducts);
     cartHeader.innerHTML =
       /*html*/
       `
@@ -285,6 +248,10 @@ function refreshCart(array) {
 
         </div>
       `;
+    const numeroProdotti = document.getElementById("products-value");
+    const valoreCarrello = document.getElementById("products-total");
+    numeroProdotti.innerText = sumProducts(array);
+    valoreCarrello.innerText = sumPrices(array);
 
     const cartButton = document.querySelector(".toggle-cart-button");
     cartButton.classList.add("rotate-center");
@@ -294,8 +261,7 @@ function refreshCart(array) {
   }
 
   // Converte l'array del carrello e lo salva nel local storage
-  const cartProductsJSON = JSON.stringify(cartProducts);
-  localStorage.setItem("cartProducts", cartProductsJSON);
+  cartToLocalStorage(array);
 }
 
 // Funzione chiamata quando l'utente rimuove un libro dal carrello
@@ -309,8 +275,47 @@ function rimuovi(button) {
     // Rimuovi il prodotto dalla lista del carrello
     cartProducts.splice(productIndex, 1);
     refreshCart(cartProducts);
-    console.log("rimuovi", cartProducts);
   }
+}
+
+// Identificazione elementi nel DOM e l'API
+const searchResultDiv = document.querySelector(".search-results");
+const sidecartDiv = document.querySelector(".nav");
+const linkProducts = "https://striveschool-api.herokuapp.com/api/product/";
+const requestOptionsGet = {
+  method: "GET",
+  headers: {
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFmMTQxOWM3Mjg4NzAwMTg4N2ZmMWIiLCJpYXQiOjE2OTY1MzU1NzcsImV4cCI6MTY5Nzc0NTE3N30.7UuxGWrA8TVoFpfvg1a-mX0FXSBmdigPkRW-UNqC6h8",
+    // Aggiungi altri header se necessario
+  },
+};
+const searchInput = document.getElementById("search-input");
+const reloadButton = document.getElementById("reload-button");
+const cartHeader = document.querySelector(".cart-header");
+const cartTitle = document.querySelector(".cart-title");
+
+// Pulisco gli elemnti che mi interessano nel DOM
+// searchResultDiv.innerHTML = "";
+sidecartDiv.innerHTML = "";
+
+// VARIABILI E ARRAYS
+let totalProducts = [];
+let visibleProducts = [];
+let cartProducts = [];
+console.log(cartProducts);
+
+// Ottieni la stringa JSON dal local storage con la chiave specifica
+const cartProductsJSON = localStorage.getItem("cartProducts");
+
+// Converti la stringa JSON in un array JavaScript
+cartProducts = JSON.parse(cartProductsJSON);
+
+// Ora cartProducts contiene i dati recuperati dal local storage
+if (cartProducts) {
+  refreshCart(cartProducts);
+} else {
+  cartProducts = [];
 }
 
 // FUNZIONI: ESECUZIONE
@@ -322,4 +327,3 @@ reloadButton.addEventListener("click", function () {
   getProducts(linkProducts); // Chiamiamo nuovamente la funzione getProducts() per ricaricare i libri
   searchInput.value = ""; // Ripristiniamo il valore dell'input di ricerca a una stringa vuota
 });
-

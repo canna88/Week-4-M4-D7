@@ -54,6 +54,10 @@
     - animazione caricamento card
     - animazione carrello compari/scompari
 
+    - sui modali UPDATE e ADD, al click dei pulsanti 
+        non si deve chiudere se tutti 
+        i campi non sono stati compilati
+
 
 - [DONE] JAVASCRIPT
     - [DONE] API
@@ -80,9 +84,10 @@
     - sistemare le card della home-page
     - controllare tutte le funzioni di fetch
     - controllare che il carrello venga spostato da una parte all'altra
-    - sistemare il contenuto dei modali
+    - [DONE] sistemare il contenuto dei modali
     - controllare refresh cart su script e script_dettagli_prodotto
     - immagine dettagli_prodotto html
+    - cancellare tutti i console.log
 
 
 ARRAY PROVA

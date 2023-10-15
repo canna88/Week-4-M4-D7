@@ -182,6 +182,10 @@ section {
   margin: 0 0 50px 0;
 }
 
+section#footer {
+  margin: 0 0 0 0;
+}
+
 .product,
 .no-items-message {
   border: 1px solid #ccc;
@@ -205,4 +209,12 @@ section {
   font-weight: bold;
   color: white; /* Colore del testo dell'header */
   border-bottom: none; /* Rimuove la linea inferiore dell'header */
+}
+
+/* PER TRONCARE IL TESTO NELLA LISTA PRODOTTI DEL BACKOFFICE */
+.truncate-text {
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; /* Sostituisci con la larghezza massima desiderata */
 }
